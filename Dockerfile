@@ -1,20 +1,20 @@
-# Use an official Node.js image as the base
-FROM node:18
+# Use the official Bun image from Docker Hub
+FROM oven/bun:latest
 
-# Install Bun
-RUN curl -fsSL https://bun.sh/install | bash
-
-# Set the working directory in the container
+# Set the working directory
 WORKDIR /app
 
-# Copy the project files into the container
-COPY . .
+# Copy the package files
+COPY package.json bun.lockb ./
 
-# Install dependencies using Bun
+# Install dependencies
 RUN bun install
 
-# Expose the port your app runs on
+# Copy the rest of your application
+COPY . .
+
+# Expose the port that your app will run on
 EXPOSE 3000
 
-# Start the app using Bun
-CMD ["bun", "start"]
+# Set the start command
+CMD ["bun", "run", "dev"]
