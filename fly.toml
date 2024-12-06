@@ -1,0 +1,18 @@
+app = "amvstrm-api-test"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  PORT = "3000"  # Or whichever port your app listens on
+
+[[services]]
+  http_checks = []
+  internal_port = 3000
+  protocol = "tcp"
+  [services.concurrency]
+    soft_limit = 25
+    hard_limit = 50
+  [[services.ports]]
+    handlers = ["http"]
+    port = "80"
