@@ -1,5 +1,8 @@
-# Use the official node image with Bun support
-FROM bunsh/bun:latest
+# Use the official Node.js image as the base image
+FROM node:18
+
+# Install Bun
+RUN curl -fsSL https://bun.sh/installer | bash
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -8,10 +11,10 @@ WORKDIR /app
 COPY . .
 
 # Install dependencies using Bun
-RUN bun install
+RUN /root/.bun/bin/bun install
 
 # Expose the port the app will run on
 EXPOSE 3000
 
 # Start the application
-CMD ["bun", "run", "dev"]
+CMD ["/root/.bun/bin/bun", "run", "dev"]
