@@ -1,20 +1,17 @@
-# Use the official Bun image from Docker Hub
-FROM oven/bun:latest
+# Use the official node image with Bun support
+FROM bunsh/bun:latest
 
-# Set the working directory
+# Set the working directory inside the container
 WORKDIR /app
 
-# Copy the package files
-COPY package.json bun.lockb ./
-
-# Install dependencies
-RUN bun install
-
-# Copy the rest of your application
+# Copy the application files into the container
 COPY . .
 
-# Expose the port that your app will run on
+# Install dependencies using Bun
+RUN bun install
+
+# Expose the port the app will run on
 EXPOSE 3000
 
-# Set the start command
+# Start the application
 CMD ["bun", "run", "dev"]
